@@ -11,26 +11,32 @@ class Region(models.Model):
 
 
 # Salespeople Model
-class Salesperson(models.Model):
+class Salespeople(models.Model):
     salesperson_id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Link Salesperson to User
-    assigned_region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    # Other fields and methods specific to the Salesperson model
+    name = models.CharField(max_length=255)
+    number = models.IntegerField()
+    residence = models.CharField(max_length=255)
+    assigned_region_id = models.ForeignKey(Region, on_delete=models.CASCADE)
 
 # Sales Model
 class Sale(models.Model):
     sale_id = models.AutoField(primary_key=True)
-    salesperson = models.ForeignKey(Salesperson, on_delete=models.CASCADE)
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-    # Other fields and methods specific to the Sale model
+    salesperson_id = models.ForeignKey(Salespeople, on_delete=models.CASCADE)
+    region_id = models.ForeignKey(Region, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    date = models.DateField()
 
 # CommissionRate Model
 class CommissionRate(models.Model):
     rate_id = models.AutoField(primary_key=True)
-    # Fields and methods specific to the CommissionRate model
+    sales_amount_limit = models.FloatField()
+    in_region_rate = models.FloatField()
+    out_region_rate = models.FloatField()
 
 # Use Model
 class Use(models.Model):
     use_id = models.AutoField(primary_key=True)
-    salesperson = models.ForeignKey(Salesperson, on_delete=models.CASCADE)
-    # Other fields and methods specific to the Use model
+    salesperson_id = models.ForeignKey(Salespeople, on_delete=models.CASCADE)
+    resource_name = models.CharField(max_length=255)
+    usage_date = models.DateField()
+
