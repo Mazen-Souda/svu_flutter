@@ -12,4 +12,7 @@ path('', CommissionRateDetailView.as_view()),
 path('', UseListCreateView.as_view()),
 path('', UseDetailView.as_view()),
 path('calculate-commissions/', calculate_commissions, name='calculate_commissions'),
+path('calculate-commissions/<int:salesperson_id>/<int:month>/<int:year>/', calculate_commissions,
+         name='calculate_commissions'),
+
 ]
